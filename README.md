@@ -1,4 +1,5 @@
 Docker container to run Mikrotik RouterOS
+添加amd与arm平台
 
 ### Usage
 
@@ -40,8 +41,8 @@ services:
 ```
 
 ## Docker Hub Pages: 
-* https://hub.docker.com/r/vaerh/routeros
-* https://hub.docker.com/r/vaerhme/routeros
+* https://hub.docker.com/r/solyhe84/routeros
+
 
 ### Notes
 Now you can connect to your RouterOS container via VNC protocol
@@ -58,6 +59,7 @@ Now you can connect to your RouterOS container via VNC protocol
 | PPTP        | 1723 |
 
 ## Links
+* https://github.com/vaerh/docker-routeros
 * https://github.com/EvilFreelancer/docker-routeros
 * https://github.com/joshkunz/qemu-docker
 * https://github.com/ennweb/docker-kvm
