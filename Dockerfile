@@ -13,23 +13,11 @@ WORKDIR /routeros
 # Install dependencies
 RUN set -xe \
  && apk add --no-cache --update \
-    netcat-openbsd \
+    netcat-openbsd qemu-x86_64 qemu-system-x86_64 qemu-system-aarch64 qemu-system-arm \
     busybox-extras iproute2 iputils \
     bridge-utils iptables jq bash python3 \
     libarchive-tools
 
-ARG ARCH
-RUN if [ "$ARCH" = "amd64" ]; then \
-        apk add --no-cache --update qemu-x86_64 qemu-system-x86_64; \
-    elif [ "$ARCH" = "arm64" ]; then \
-        apk add --no-cache --update qemu-system-aarch64; \
-    elif [ "$ARCH" = "armv6" ]; then \
-        apk add --no-cache --update qemu-system-arm; \
-    elif [ "$ARCH" = "armv7" ]; then \
-        apk add --no-cache --update qemu-system-arm; \
-    else \
-        echo "Unsupported platform" && exit 1; \
-    fi
 
 # Environments which may be change
 ENV ROUTEROS_VERSION="7.11.2"
