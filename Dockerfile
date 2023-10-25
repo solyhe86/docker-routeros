@@ -1,6 +1,6 @@
 FROM alpine:3.18.3
 
-LABEL maintainer="Vaerh <vaerh@tutanota.com>"
+LABEL maintainer="solyhe"
 
 # For access via VNC
 EXPOSE 5900
@@ -14,7 +14,7 @@ WORKDIR /routeros
 # Install dependencies
 RUN set -xe \
  && apk add --no-cache --update \
-    netcat-openbsd qemu-x86_64 qemu-system-x86_64 \
+    netcat-openbsd qemu-x86_64 qemu-system-x86_64 qemu-system-arm qemu-system-aarch64\
     busybox-extras iproute2 iputils \
     bridge-utils iptables jq bash python3 \
     libarchive-tools
