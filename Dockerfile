@@ -15,7 +15,7 @@ RUN if [ "$BUILDPLATFORM" = "linux/amd64" ]; then \
         echo "Unsupported platform" && exit 1; \
     fi
 
-RUN curl -L -o /usr/bin/qemu-$QEMU_ARCH-static \
+RUN curl -L -o /usr/bin/qemu-static \
     https://github.com/multiarch/qemu-user-static/releases/download/v6.2.0/qemu-$QEMU_ARCH-static && \
     chmod +x /usr/bin/qemu-$QEMU_ARCH-static
 
@@ -52,6 +52,6 @@ RUN wget -qO- "$ROUTEROS_PATH".zip | bsdtar -C /routeros/ -xf- || wget "$ROUTERO
 # Copy script to routeros folder
 ADD ["./scripts", "/routeros"]
 # 复制来自第一阶段的QEMU二进制文件
-COPY --from=qemu /usr/bin/qemu-$QEMU_ARCH-static /usr/bin/
+COPY --from=qemu /usr/bin/qemu-static /usr/bin/
 
 ENTRYPOINT ["/routeros/entrypoint.sh"]
