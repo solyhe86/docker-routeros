@@ -23,11 +23,11 @@ RUN set -xe \
 # 如果 ARCH 变量是 "arm64"，则安装 ARM64 平台的 QEMU 用户空间工具
 ARG ARCH
 RUN if [ "$ARCH" = "amd64" ]; then \
-        apk add --no-cache --update qemu-x86_64 qemu-system-x86_64; \
+        set -xe && apk add --no-cache --update qemu-x86_64 qemu-system-x86_64; \
     elif [ "$ARCH" = "arm" ]; then \
-        apk add --no-cache  --update qemu-system-arm; \
+        set -xe && apk add --no-cache  --update qemu-system-arm; \
     elif [ "$ARCH" = "arm64" ]; then \
-        apk add --no-cache --update qemu-system-aarch64; \
+        set -xe && apk add --no-cache --update qemu-system-aarch64; \
     fi
 
 # Environments which may be change
