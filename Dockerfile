@@ -14,7 +14,7 @@ WORKDIR /routeros
 # Install dependencies
 RUN set -xe \
  && apk add --no-cache --update \
-    netcat-openbsd qemu \
+    netcat-openbsd qemu-x86_64 qemu-system-x86_64 qemu-system-aarch64 qemu-system-arm \
     busybox-extras iproute2 iputils \
     bridge-utils iptables jq bash python3 \
     libarchive-tools
