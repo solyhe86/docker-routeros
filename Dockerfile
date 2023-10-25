@@ -1,15 +1,3 @@
-FROM --platform=arm/v6 alpine:3.18.3
-RUN set -xe && apk add --no-cache --update qemu-system-arm
-
-FROM --platform=arm/v7 alpine:3.18.3
-RUN set -xe && 
-
-FROM --platform=arm64 alpine:3.18.3
-RUN set -xe && 
-
-FROM --platform=amd64 alpine:3.18.3
-RUN set -xe && 
-
 FROM alpine:3.18.3
 LABEL maintainer="solyhe"
 
