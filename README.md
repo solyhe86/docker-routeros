@@ -1,6 +1,6 @@
 Docker container to run Mikrotik RouterOS
 
-amd与arm平台
+arm平台目前使用的是依然是amd的qemu
 
 ### Usage
 
