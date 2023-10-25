@@ -13,7 +13,7 @@ docker run -d --rm \
   -p 8729:8729 \
   -p 5900:5900 \
   --name routeros-$(head -c 4 /dev/urandom | xxd -p)-$(date +'%Y%m%d-%H%M%S') \
-vaerhme/routeros:latest
+solyhe84/routeros:latest
 ```
 docker-compose
 ```
@@ -21,7 +21,7 @@ version: "3"
 
 services:
   routeros:
-    image: vaerh/routeros:latest
+    image: solyhe84/routeros:latest
     privileged: true
     restart: unless-stopped
     # 8 interfaces
