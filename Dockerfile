@@ -1,13 +1,13 @@
-FROM --platform=linux/arm/v6 alpine:3.18.3
+FROM --platform=arm/v6 alpine:3.18.3
 RUN set -xe && apk add --no-cache --update qemu-system-arm
 
-FROM --platform=linux/arm/v7 alpine:3.18.3
+FROM --platform=arm/v7 alpine:3.18.3
 RUN set -xe && apk add --no-cache --update qemu-system-arm
 
-FROM --platform=linux/arm64 alpine:3.18.3
+FROM --platform=arm64 alpine:3.18.3
 RUN set -xe && apk add --no-cache --update qemu-system-aarch64
 
-FROM --platform=linux/amd64 alpine:3.18.3
+FROM --platform=amd64 alpine:3.18.3
 RUN set -xe && apk add --no-cache --update qemu-x86_64 qemu-system-x86_64
 
 FROM alpine:3.18.3
