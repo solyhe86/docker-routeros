@@ -1,4 +1,4 @@
-FROM alpine:3.18.3
+FROM --platform=$BUILDPLATFORM alpine:3.18.3
 
 LABEL maintainer="solyhe"
 
@@ -21,14 +21,14 @@ RUN set -xe \
 # 如果 ARCH 变量是 "amd64"，则安装 x86_64 平台的 QEMU 用户空间工具
 # 如果 ARCH 变量是 "arm"，则安装 ARM 平台的 QEMU 用户空间工具
 # 如果 ARCH 变量是 "arm64"，则安装 ARM64 平台的 QEMU 用户空间工具
-ARG ARCH
-RUN if [ "$ARCH" = "linux/amd64" ]; then \
+ARG BUILDPLATFORM
+RUN if [ "$BUILDPLATFORM" = "linux/amd64" ]; then \
         apk add --no-cache --update qemu-x86_64 qemu-system-x86_64; \
-    elif [ "$ARCH" = "linux/arm/v6" ]; then \
+    elif [ "$BUILDPLATFORM" = "linux/arm/v6" ]; then \
         apk add --no-cache  --update qemu-system-arm; \
-    elif [ "$ARCH" = "linux/arm/v7" ]; then \
+    elif [ "$BUILDPLATFORM" = "linux/arm/v7" ]; then \
         apk add --no-cache  --update qemu-system-arm; \
-    elif [ "$ARCH" = "linux/arm64" ]; then \
+    elif [ "$BUILDPLATFORM" = "linux/arm64" ]; then \
         apk add --no-cache --update qemu-system-aarch64; \
     fi
 
