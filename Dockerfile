@@ -1,4 +1,26 @@
-FROM alpine:3.18.3
+# 第一阶段：获取构建平台信息并选择QEMU版本
+FROM --platform=$BUILDPLATFORM alpine:3.18.3 AS qemu
+
+ARG BUILDPLATFORM
+# 根据构建平台选择适当的QEMU版本并下载
+RUN if [ "$BUILDPLATFORM" = "linux/amd64" ]; then \
+        QEMU_ARCH="x86_64"; \
+    elif [ "$BUILDPLATFORM" = "linux/arm64" ]; then \
+        QEMU_ARCH="aarch64"; \
+    elif [ "$BUILDPLATFORM" = "linux/arm/v6" ]; then \
+        QEMU_ARCH="arm"; \
+    elif [ "$BUILDPLATFORM" = "linux/arm/v7" ]; then \
+        QEMU_ARCH="arm"; \
+    else \
+        echo "Unsupported platform" && exit 1; \
+    fi
+
+RUN curl -L -o /usr/bin/qemu-$QEMU_ARCH-static \
+    https://github.com/multiarch/qemu-user-static/releases/download/v6.2.0/qemu-$QEMU_ARCH-static && \
+    chmod +x /usr/bin/qemu-$QEMU_ARCH-static
+
+# 第二阶段：构建你的应用程序或执行其他操作
+FROM --platform=$BUILDPLATFORM alpine:3.18.3
 LABEL maintainer="solyhe"
 
 # For access via VNC
@@ -13,7 +35,7 @@ WORKDIR /routeros
 # Install dependencies
 RUN set -xe \
  && apk add --no-cache --update \
-    netcat-openbsd qemu-x86_64 qemu-system-x86_64 qemu-system-aarch64 qemu-system-arm \
+    netcat-openbsd qemu-x86_64 qemu-system-x86_64 \   #qemu-system-aarch64 qemu-system-arm
     busybox-extras iproute2 iputils \
     bridge-utils iptables jq bash python3 \
     libarchive-tools
@@ -29,5 +51,7 @@ RUN wget -qO- "$ROUTEROS_PATH".zip | bsdtar -C /routeros/ -xf- || wget "$ROUTERO
 
 # Copy script to routeros folder
 ADD ["./scripts", "/routeros"]
+# 复制来自第一阶段的QEMU二进制文件
+COPY --from=qemu /usr/bin/qemu-$QEMU_ARCH-static /usr/bin/
 
 ENTRYPOINT ["/routeros/entrypoint.sh"]
