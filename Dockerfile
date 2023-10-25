@@ -1,4 +1,24 @@
-FROM alpine:3.18.3
+# 第一阶段：用于ARM平台
+FROM arm32v7/alpine:3.18.3 AS arm-stage
+
+# 在此阶段安装ARM平台特定的QEMU组件
+RUN apk add --no-cache --update qemu-system-arm
+
+# 第二阶段：用于ARM64平台
+FROM arm64v8/alpine:3.18.3 AS arm64-stage
+
+# 在此阶段安装ARM64平台特定的QEMU组件
+RUN apk add --no-cache --update qemu-system-aarch64
+
+# 第三阶段：用于x86_64平台
+FROM alpine:3.18.3 AS x86_64-stage
+
+# 在此阶段安装x86_64平台特定的QEMU组件
+RUN apk add --no-cache --update qemu-x86_64 qemu-system-x86_64
+
+# 最终阶段：选择要使用的阶段，根据平台
+# 你可以通过在构建时指定不同的目标平台来选择相应的阶段
+FROM alpine:3.18.3 AS final
 
 LABEL maintainer="solyhe"
 
@@ -14,7 +34,7 @@ WORKDIR /routeros
 # Install dependencies
 RUN set -xe \
  && apk add --no-cache --update \
-    netcat-openbsd qemu-x86_64 qemu-system-x86_64 qemu-system-aarch64 qemu-system-arm \
+    netcat-openbsd \
     busybox-extras iproute2 iputils \
     bridge-utils iptables jq bash python3 \
     libarchive-tools
