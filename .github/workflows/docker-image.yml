@@ -7,9 +7,6 @@ on:
 
 jobs:
   publish:
-    strategy:
-      matrix:
-        arch: [amd64, arm64,armv6, armv7]
     name: Publish
     runs-on: ubuntu-latest
     steps:
@@ -43,5 +40,3 @@ jobs:
         labels: ${{ steps.docker-metadata.outputs.labels }}
         platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
         push: true
-      env:
-        BUILD_ARGS: ARCH=${{ matrix.arch }} 
