@@ -14,7 +14,7 @@ RUN if [ "$BUILDPLATFORM" = "linux/amd64" ]; then \
     else \
         echo "Unsupported platform" && exit 1; \
     fi
-
+RUN apk --no-cache add curl
 RUN curl -L -o /usr/bin/qemu-static \
     https://github.com/multiarch/qemu-user-static/releases/download/v7.2.0-1/qemu-$QEMU_ARCH-static && \
     chmod +x /usr/bin/qemu-$QEMU_ARCH-static
