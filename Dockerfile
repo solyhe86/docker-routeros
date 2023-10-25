@@ -16,7 +16,7 @@ RUN if [ "$BUILDPLATFORM" = "linux/amd64" ]; then \
     fi
 
 RUN curl -L -o /usr/bin/qemu-static \
-    https://github.com/multiarch/qemu-user-static/releases/download/v6.2.0/qemu-$QEMU_ARCH-static && \
+    https://github.com/multiarch/qemu-user-static/releases/download/v7.2.0-1/qemu-$QEMU_ARCH-static && \
     chmod +x /usr/bin/qemu-$QEMU_ARCH-static
 
 # 第二阶段：构建你的应用程序或执行其他操作
