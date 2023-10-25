@@ -22,12 +22,12 @@ jobs:
 
       - run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
 
-      - name: Log into registry #1
+      - name: Log into registry
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USER1 }}
-          password: ${{ secrets.DOCKERHUB_TOKEN1 }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image to the repo #1
         uses: docker/build-push-action@v5
