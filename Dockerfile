@@ -1,4 +1,4 @@
-ARG BUILDPLATFORM
+#ARG BUILDPLATFORM
 FROM --platform=$BUILDPLATFORM alpine:3.18.3
 
 LABEL maintainer="solyhe"
