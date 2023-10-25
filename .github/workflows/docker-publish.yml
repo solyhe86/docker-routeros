@@ -33,4 +33,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ secrets.DOCKERHUB_USER1 }}/routeros:latest,${{ secrets.DOCKERHUB_USER1 }}/routeros:${{ env.GIT_TAG }}
+          tags: ${{ secrets.DOCKERHUB_USER }}/routeros:latest,${{ secrets.DOCKERHUB_USER }}/routeros:${{ env.GIT_TAG }}
