@@ -62,7 +62,7 @@ prepare_intf $default_dev4 $QEMU_BRIDGE_ETH4
 # -drive: The VM image we're booting.
 # mac: Set up your own interfaces mac addresses here, cause from winbox you can not change these later.
 MAC_BASE=$(printf '54:05:AB:%02X:%02X:%X\n' $[RANDOM%256] $[RANDOM%256] $[RANDOM%16])
-exec qemu-static \
+exec qemu-system-x86_64 \
    -nographic -serial mon:stdio \
    -vnc 0.0.0.0:0 \
    -m 512 \
