@@ -94,7 +94,7 @@ prepare_intf $default_dev8 $QEMU_BRIDGE_ETH8
 # -nic: Use a TAP interface with our custom up/down scripts.
 # -drive: The VM image we're booting.
 # mac: Set up your own interfaces mac addresses here, cause from winbox you can not change these later.
-exec qemu-static \
+exec qemu-system-x86_64 \
    -nographic -serial mon:stdio \
    -vnc 0.0.0.0:0 \
    -m 512 \
