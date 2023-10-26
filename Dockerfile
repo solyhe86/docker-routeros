@@ -1,15 +1,15 @@
 # 第一阶段：获取构建平台信息并选择QEMU版本
-FROM --platform=$BUILDPLATFORM alpine:3.18.3 AS qemu
+FROM --platform=$TARGETPLATFORM alpine:3.18.3 AS qemu
 
-ARG BUILDPLATFORM
+ARG TARGETPLATFORM
 # 根据构建平台选择适当的QEMU版本并下载
-RUN if [ "$BUILDPLATFORM" = "amd64" ]; then \
+RUN if [ "$TARGETPLATFORM" = "amd64" ]; then \
         QEMU_ARCH="x86_64"; \
-    elif [ "$BUILDPLATFORM" = "arm64" ]; then \
+    elif [ "$TARGETPLATFORM" = "arm64" ]; then \
         QEMU_ARCH="aarch64"; \
-    elif [ "$BUILDPLATFORM" = "arm/v6" ]; then \
+    elif [ "$TARGETPLATFORM" = "arm/v6" ]; then \
         QEMU_ARCH="arm"; \
-    elif [ "$BUILDPLATFORM" = "arm/v7" ]; then \
+    elif [ "$TARGETPLATFORM" = "arm/v7" ]; then \
         QEMU_ARCH="arm"; \
     else \
         echo "Unsupported platform" && exit 1; \
@@ -20,7 +20,7 @@ RUN curl -L -o /usr/bin/qemu-static \
     chmod +x /usr/bin/qemu-$QEMU_ARCH-static
 
 # 第二阶段：构建你的应用程序或执行其他操作
-FROM --platform=$BUILDPLATFORM alpine:3.18.3
+FROM --platform=$TARGETPLATFORM alpine:3.18.3
 LABEL maintainer="solyhe"
 
 # For access via VNC
