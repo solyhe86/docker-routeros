@@ -3,13 +3,13 @@ FROM --platform=$BUILDPLATFORM alpine:3.18.3 AS qemu
 
 ARG BUILDPLATFORM
 # 根据构建平台选择适当的QEMU版本并下载
-RUN if [ "$BUILDPLATFORM" = "linux/amd64" ]; then \
+RUN if [ "$BUILDPLATFORM" = "amd64" ]; then \
         QEMU_ARCH="x86_64"; \
-    elif [ "$BUILDPLATFORM" = "linux/arm64" ]; then \
+    elif [ "$BUILDPLATFORM" = "arm64" ]; then \
         QEMU_ARCH="aarch64"; \
-    elif [ "$BUILDPLATFORM" = "linux/arm/v6" ]; then \
+    elif [ "$BUILDPLATFORM" = "arm/v6" ]; then \
         QEMU_ARCH="arm"; \
-    elif [ "$BUILDPLATFORM" = "linux/arm/v7" ]; then \
+    elif [ "$BUILDPLATFORM" = "arm/v7" ]; then \
         QEMU_ARCH="arm"; \
     else \
         echo "Unsupported platform" && exit 1; \
