@@ -3,13 +3,13 @@ FROM --platform=$TARGETPLATFORM alpine:3.18.3 AS qemu
 
 ARG TARGETPLATFORM
 # 根据构建平台选择适当的QEMU版本并下载
-RUN if [ "$TARGETPLATFORM" = "amd64" ]; then \
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
         QEMU_ARCH="x86_64"; \
-    elif [ "$TARGETPLATFORM" = "arm64" ]; then \
+    elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
         QEMU_ARCH="aarch64"; \
-    elif [ "$TARGETPLATFORM" = "arm/v6" ]; then \
+    elif [ "$TARGETPLATFORM" = "linux/arm/v6" ]; then \
         QEMU_ARCH="arm"; \
-    elif [ "$TARGETPLATFORM" = "arm/v7" ]; then \
+    elif [ "$TARGETPLATFORM" = "linux/arm/v7" ]; then \
         QEMU_ARCH="arm"; \
     else \
         echo "Unsupported platform" && exit 1; \
